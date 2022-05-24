@@ -54,10 +54,10 @@ func GetRandomStructWithProbabilities(items []interface{ GetProbability() float6
 
 // GetRandomMapItemWithProbabilities returns random item
 // from a map where values are probabilities
-func GetRandomMapItemWithProbabilities(items map[interface{}]float64) interface{} {
+func GetRandomMapItemWithProbabilities(items map[string]float64) string {
 	var (
 		sumProbabilities float64
-		result           interface{}
+		result           string
 	)
 
 	for _, v := range items {

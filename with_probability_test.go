@@ -120,17 +120,17 @@ func TestGetRandomStructWithProbabilities(t *testing.T) {
 
 func TestGetRandomMapItemWithProbabilities(t *testing.T) {
 	type args struct {
-		items map[interface{}]float64
+		items map[string]float64
 	}
 	tests := []struct {
 		name string
 		args args
-		want interface{}
+		want string
 	}{
 		{
 			name: "test1",
 			args: args{
-				items: map[interface{}]float64{
+				items: map[string]float64{
 					"a": 0.0,
 					"b": 0.2,
 					"c": 0.0,

@@ -52,6 +52,28 @@ func GetRandomStructWithProbabilities(items []interface{ GetProbability() float6
 	return result
 }
 
+// GetRandomMapItemWithProbabilities returns random item
+// from a map where values are probabilities
+func GetRandomMapItemWithProbabilities(items map[interface{}]float64) interface{} {
+	var (
+		sumProbabilities float64
+		result           interface{}
+	)
+
+	for _, v := range items {
+		sumProbabilities += v
+	}
+
+	for k, v := range items {
+		result = k
+		if randomFloat64(sumProbabilities) <= v {
+			break
+		}
+	}
+
+	return result
+}
+
 // Random float64 number in given max
 func randomFloat64(max float64) float64 {
 	rand.Seed(time.Now().Unix())

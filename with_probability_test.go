@@ -117,3 +117,33 @@ func TestGetRandomStructWithProbabilities(t *testing.T) {
 		})
 	}
 }
+
+func TestGetRandomMapItemWithProbabilities(t *testing.T) {
+	type args struct {
+		items map[interface{}]float64
+	}
+	tests := []struct {
+		name string
+		args args
+		want interface{}
+	}{
+		{
+			name: "test1",
+			args: args{
+				items: map[interface{}]float64{
+					"a": 0.0,
+					"b": 0.2,
+					"c": 0.0,
+				},
+			},
+			want: "b",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := GetRandomMapItemWithProbabilities(tt.args.items); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("GetRandomMapItemWithProbabilities() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

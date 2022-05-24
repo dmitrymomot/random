@@ -65,34 +65,54 @@ func Test_randomFloat64(t *testing.T) {
 	}
 }
 
-func Test_sumSlice(t *testing.T) {
+type testStruct struct {
+	Field1      string
+	Field2      int
+	Probability float64
+}
+
+func (t testStruct) GetProbability() float64 {
+	return t.Probability
+}
+
+func TestGetRandomStructWithProbabilities(t *testing.T) {
 	type args struct {
-		values []float64
+		items []interface{ GetProbability() float64 }
 	}
+
+	a := testStruct{
+		Field1:      "a",
+		Field2:      1,
+		Probability: 0.0,
+	}
+	b := testStruct{
+		Field1:      "b",
+		Field2:      2,
+		Probability: 0.2,
+	}
+	c := testStruct{
+		Field1:      "c",
+		Field2:      3,
+		Probability: 0.0,
+	}
+
 	tests := []struct {
 		name string
 		args args
-		want float64
+		want interface{}
 	}{
 		{
 			name: "test1",
 			args: args{
-				values: []float64{1, 2, 3},
+				items: []interface{ GetProbability() float64 }{a, b, c},
 			},
-			want: 6,
-		},
-		{
-			name: "test2",
-			args: args{
-				values: []float64{0.1, 2, 3.5, 4.1},
-			},
-			want: 9.7,
+			want: b,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := sumSlice(tt.args.values); got != tt.want {
-				t.Errorf("sumSlice() = %v, want %v", got, tt.want)
+			if got := GetRandomStructWithProbabilities(tt.args.items); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("GetRandomStructWithProbabilities() = %v, want %v", got, tt.want)
 			}
 		})
 	}

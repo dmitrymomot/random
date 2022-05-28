@@ -158,3 +158,44 @@ func TestGetRandomMapItemWithProbabilities(t *testing.T) {
 		})
 	}
 }
+
+func TestGetRandomMapItemWithProbabilitiesOf100Percent(t *testing.T) {
+	type args struct {
+		items map[string]float64
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "test1",
+			args: args{
+				items: map[string]float64{
+					"a": 0.0,
+					"b": 0.2,
+					"c": 0.0,
+				},
+			},
+			want: "b",
+		},
+		{
+			name: "test2",
+			args: args{
+				items: map[string]float64{
+					"a": 55.7,
+					"b": 12.3,
+					"c": 0.2,
+				},
+			},
+			want: "a",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := GetRandomMapItemWithProbabilitiesOf100Percent(tt.args.items); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("GetRandomMapItemWithProbabilitiesOf100Percent() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

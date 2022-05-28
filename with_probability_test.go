@@ -3,6 +3,8 @@ package random
 import (
 	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGetRandomWithProbabilities(t *testing.T) {
@@ -210,4 +212,37 @@ func TestGetRandomMapItemWithPrecent(t *testing.T) {
 			}
 		})
 	}
+}
+
+func Test_randomMapItem(t *testing.T) {
+	var (
+		a, b, c, d, e int
+	)
+	for i := 0; i < 1000; i++ {
+		switch GetRandomMapItemWithPrecent(map[string]float64{
+			"a": 50.0,
+			"b": 30.0,
+			"c": 12.0,
+			"d": 7.5,
+			"e": 0.1,
+		}) {
+		case "a":
+			a++
+		case "b":
+			b++
+		case "c":
+			c++
+		case "d":
+			d++
+		case "e":
+			e++
+		}
+	}
+
+	assert.Less(t, e, d)
+	assert.Less(t, d, c)
+	assert.Less(t, c, b)
+	assert.Less(t, b, a)
+
+	t.Logf("a: %d, b: %d, c: %d, d: %d, e: %d", a, b, c, d, e)
 }

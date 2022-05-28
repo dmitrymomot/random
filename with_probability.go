@@ -57,7 +57,6 @@ func GetRandomStructWithProbabilities(items []interface{ GetProbability() float6
 func GetRandomMapItemWithProbabilities(items map[string]float64) string {
 	var (
 		sumProbabilities float64
-		counter          float64
 		result           string
 	)
 
@@ -66,8 +65,7 @@ func GetRandomMapItemWithProbabilities(items map[string]float64) string {
 	}
 
 	for k, v := range items {
-		counter += v
-		if randomFloat64(sumProbabilities) < counter {
+		if randomFloat64(sumProbabilities) <= v {
 			result = k
 			break
 		}
@@ -85,13 +83,11 @@ func GetRandomMapItemWithProbabilities(items map[string]float64) string {
 func GetRandomMapItemWithProbabilitiesOf100Percent(items map[string]float64) string {
 	var (
 		sumProbabilities float64 = 100.0
-		counter          float64
 		result           string
 	)
 
 	for k, v := range items {
-		counter += v
-		if randomFloat64(sumProbabilities) < counter {
+		if randomFloat64(sumProbabilities) <= v {
 			result = k
 			break
 		}

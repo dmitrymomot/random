@@ -98,7 +98,7 @@ func GetRandomMapItemWithProbabilitiesOf100Percent(items map[string]float64) str
 	}
 
 	if result == "" {
-		result = GetRandomMapItemWithProbabilities(items)
+		result = GetRandomMapItemWithProbabilitiesOf100Percent(items)
 	}
 
 	return result

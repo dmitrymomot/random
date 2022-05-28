@@ -159,7 +159,7 @@ func TestGetRandomMapItemWithProbabilities(t *testing.T) {
 	}
 }
 
-func TestGetRandomMapItemWithProbabilitiesOf100Percent(t *testing.T) {
+func TestGetRandomMapItemWithPrecent(t *testing.T) {
 	type args struct {
 		items map[string]float64
 	}
@@ -205,8 +205,8 @@ func TestGetRandomMapItemWithProbabilitiesOf100Percent(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := GetRandomMapItemWithProbabilitiesOf100Percent(tt.args.items); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetRandomMapItemWithProbabilitiesOf100Percent() = %v, want %v", got, tt.want)
+			if got := GetRandomMapItemWithPrecent(tt.args.items); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("GetRandomMapItemWithPrecent() = %v, want %v", got, tt.want)
 			}
 		})
 	}

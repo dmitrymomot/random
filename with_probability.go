@@ -78,23 +78,20 @@ func GetRandomMapItemWithProbabilities(items map[string]float64) string {
 	return result
 }
 
-// GetRandomMapItemWithProbabilitiesOf100Percent returns random item
-// from a map where values are probabilities
-func GetRandomMapItemWithProbabilitiesOf100Percent(items map[string]float64) string {
-	var (
-		sumProbabilities float64 = 100.0
-		result           string
-	)
+// GetRandomMapItemWithPrecent returns random item
+// from a map where values are drop percentages
+func GetRandomMapItemWithPrecent(items map[string]float64) string {
+	var result string
 
 	for k, v := range items {
-		if randomFloat64(sumProbabilities) <= v {
+		if randomFloat64(100) <= v {
 			result = k
 			break
 		}
 	}
 
 	if result == "" {
-		result = GetRandomMapItemWithProbabilitiesOf100Percent(items)
+		result = GetRandomMapItemWithPrecent(items)
 	}
 
 	return result

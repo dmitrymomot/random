@@ -76,7 +76,7 @@ func GetRandomMapItemWithProbabilities(items map[string]float64) string {
 
 // Random float64 number in given max
 func randomFloat64(max float64) float64 {
-	rand.Seed(time.Now().Unix())
+	rand.Seed(time.Now().UnixNano())
 
 	return rand.Float64() * max
 }

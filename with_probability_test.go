@@ -138,6 +138,17 @@ func TestGetRandomMapItemWithProbabilities(t *testing.T) {
 			},
 			want: "b",
 		},
+		{
+			name: "test2",
+			args: args{
+				items: map[string]float64{
+					"a": 55.1,
+					"b": 12.1,
+					"c": 0.2,
+				},
+			},
+			want: "a",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

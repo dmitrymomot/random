@@ -1,7 +1,7 @@
 # random
 
-[![Tests](https://github.com/dmitrymomot/random/actions/workflows/go.yml/badge.svg)](https://github.com/SatorNetwork/game-api/actions/workflows/go.yml)
-[![CodeQL Analysis](https://github.com/dmitrymomot/random/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/SatorNetwork/game-api/actions/workflows/codeql-analysis.yml)
+[![Tests](https://github.com/dmitrymomot/random/actions/workflows/go.yml/badge.svg)](https://github.com/dmitrymomot/random/actions/workflows/go.yml)
+[![CodeQL Analysis](https://github.com/dmitrymomot/random/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/dmitrymomot/random/actions/workflows/codeql-analysis.yml)
 
 Small and simple helper to generate "random" string.
 

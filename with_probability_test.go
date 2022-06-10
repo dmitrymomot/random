@@ -140,17 +140,6 @@ func TestGetRandomMapItemWithProbabilities(t *testing.T) {
 			},
 			want: "b",
 		},
-		{
-			name: "test2",
-			args: args{
-				items: map[string]float64{
-					"a": 55.1,
-					"b": 12.1,
-					"c": 0.2,
-				},
-			},
-			want: "a",
-		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -180,29 +169,6 @@ func TestGetRandomMapItemWithPrecent(t *testing.T) {
 				},
 			},
 			want: "b",
-		},
-		{
-			name: "test2",
-			args: args{
-				items: map[string]float64{
-					"a": 56.7,
-					"b": 12.3,
-					"c": 0.2,
-				},
-			},
-			want: "a",
-		},
-		{
-			name: "test3",
-			args: args{
-				items: map[string]float64{
-					"a": 0.0,
-					"b": 0.0,
-					"c": 0.0,
-					"d": 0.1,
-				},
-			},
-			want: "d",
 		},
 	}
 	for _, tt := range tests {

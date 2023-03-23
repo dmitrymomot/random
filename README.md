@@ -1,7 +1,7 @@
 # random
 
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/dmitrymomot/random)](https://github.com/dmitrymomot/random)
-[![Tests](https://github.com/dmitrymomot/random/actions/workflows/go.yml/badge.svg)](https://github.com/dmitrymomot/random/actions/workflows/go.yml)
+[![Tests](https://github.com/dmitrymomot/random/actions/workflows/tests.yml/badge.svg)](https://github.com/dmitrymomot/random/actions/workflows/tests.yml)
 [![CodeQL Analysis](https://github.com/dmitrymomot/random/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/dmitrymomot/random/actions/workflows/codeql-analysis.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/dmitrymomot/random)](https://goreportcard.com/report/github.com/dmitrymomot/random)
 [![Go Reference](https://pkg.go.dev/badge/github.com/dmitrymomot/random.svg)](https://pkg.go.dev/github.com/dmitrymomot/random)

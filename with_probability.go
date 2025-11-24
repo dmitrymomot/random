@@ -6,94 +6,125 @@ import (
 
 // GetRandomWithProbabilities returns random item
 // from slice of any data type with given probalities
-func GetRandomWithProbabilities(items []interface{}, probabilities []float64) interface{} {
-	var (
-		probability      float64
-		sumProbabilities float64
-		item             interface{}
-		i                int
-	)
+func GetRandomWithProbabilities(items []any, probabilities []float64) any {
+	if len(items) == 0 || len(probabilities) == 0 || len(items) != len(probabilities) {
+		return nil
+	}
 
+	var sumProbabilities float64
 	for _, value := range probabilities {
+		if value < 0 {
+			return nil
+		}
 		sumProbabilities += value
 	}
 
-	for i, item = range items {
-		probability = probabilities[i]
+	if sumProbabilities == 0 {
+		return nil
+	}
 
-		if randomFloat64(sumProbabilities) <= probability {
-			break
+	randValue := randomFloat64(sumProbabilities)
+	accumulated := 0.0
+
+	for i, item := range items {
+		accumulated += probabilities[i]
+		if randValue < accumulated {
+			return item
 		}
 	}
 
-	return item
+	return items[len(items)-1]
 }
 
 // GetRandomStructWithProbabilities returns random item
 // from slice of structures with given probabilities
-func GetRandomStructWithProbabilities(items []interface{ GetProbability() float64 }) interface{} {
-	var (
-		sumProbabilities float64
-		result           interface{}
-	)
-
-	for _, v := range items {
-		sumProbabilities += v.GetProbability()
+func GetRandomStructWithProbabilities(items []interface{ GetProbability() float64 }) any {
+	if len(items) == 0 {
+		return nil
 	}
 
+	var sumProbabilities float64
+	for _, v := range items {
+		prob := v.GetProbability()
+		if prob < 0 {
+			return nil
+		}
+		sumProbabilities += prob
+	}
+
+	if sumProbabilities == 0 {
+		return nil
+	}
+
+	randValue := randomFloat64(sumProbabilities)
+	accumulated := 0.0
+
 	for _, item := range items {
-		result = item
-		if randomFloat64(sumProbabilities) <= item.GetProbability() {
-			break
+		accumulated += item.GetProbability()
+		if randValue < accumulated {
+			return item
 		}
 	}
 
-	return result
+	return items[len(items)-1]
 }
 
 // GetRandomMapItemWithProbabilities returns random item
 // from a map where values are probabilities
 func GetRandomMapItemWithProbabilities(items map[string]float64) string {
-	var (
-		sumProbabilities float64
-		result           string
-	)
+	if len(items) == 0 {
+		return ""
+	}
 
+	var sumProbabilities float64
 	for _, v := range items {
+		if v < 0 {
+			return ""
+		}
 		sumProbabilities += v
 	}
 
+	if sumProbabilities == 0 {
+		return ""
+	}
+
+	randValue := randomFloat64(sumProbabilities)
+	accumulated := 0.0
+
+	var lastKey string
 	for k, v := range items {
-		if randomFloat64(sumProbabilities) <= v {
-			result = k
-			break
+		lastKey = k
+		accumulated += v
+		if randValue < accumulated {
+			return k
 		}
 	}
 
-	if result == "" {
-		result = GetRandomMapItemWithProbabilities(items)
-	}
-
-	return result
+	return lastKey
 }
 
-// GetRandomMapItemWithPrecent returns random item
+// GetRandomMapItemWithPercent returns random item
 // from a map where values are drop percentages
-func GetRandomMapItemWithPrecent(items map[string]float64) string {
-	var result string
+func GetRandomMapItemWithPercent(items map[string]float64) string {
+	if len(items) == 0 {
+		return ""
+	}
 
-	for k, v := range items {
-		if randomFloat64(100) <= v {
-			result = k
-			break
+	const maxAttempts = 100
+
+	for i := 0; i < maxAttempts; i++ {
+		for k, v := range items {
+			if randomFloat64(100) < v {
+				return k
+			}
 		}
 	}
 
-	if result == "" {
-		result = GetRandomMapItemWithPrecent(items)
+	for k := range items {
+		return k
 	}
 
-	return result
+	return ""
 }
 
 // Random float64 number in given max

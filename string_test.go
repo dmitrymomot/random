@@ -1,4 +1,4 @@
-package random
+package random_test
 
 import (
 	"regexp"
@@ -7,6 +7,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/dmitrymomot/random"
 )
 
 func TestString(t *testing.T) {
@@ -16,7 +18,7 @@ func TestString(t *testing.T) {
 		t.Parallel()
 
 		length := uint8(10)
-		result := String(length)
+		result := random.String(length)
 
 		require.Equal(t, int(length), len(result))
 
@@ -29,7 +31,7 @@ func TestString(t *testing.T) {
 		t.Parallel()
 
 		length := uint8(20)
-		result := String(length, Uppercase)
+		result := random.String(length, random.Uppercase)
 
 		require.Equal(t, int(length), len(result))
 
@@ -42,7 +44,7 @@ func TestString(t *testing.T) {
 		t.Parallel()
 
 		length := uint8(20)
-		result := String(length, Lowercase)
+		result := random.String(length, random.Lowercase)
 
 		require.Equal(t, int(length), len(result))
 
@@ -55,7 +57,7 @@ func TestString(t *testing.T) {
 		t.Parallel()
 
 		length := uint8(20)
-		result := String(length, Alphabetic)
+		result := random.String(length, random.Alphabetic)
 
 		require.Equal(t, int(length), len(result))
 
@@ -68,7 +70,7 @@ func TestString(t *testing.T) {
 		t.Parallel()
 
 		length := uint8(20)
-		result := String(length, Numeric)
+		result := random.String(length, random.Numeric)
 
 		require.Equal(t, int(length), len(result))
 
@@ -81,7 +83,7 @@ func TestString(t *testing.T) {
 		t.Parallel()
 
 		length := uint8(20)
-		result := String(length, Alphanumeric)
+		result := random.String(length, random.Alphanumeric)
 
 		require.Equal(t, int(length), len(result))
 
@@ -94,7 +96,7 @@ func TestString(t *testing.T) {
 		t.Parallel()
 
 		length := uint8(20)
-		result := String(length, Hex)
+		result := random.String(length, random.Hex)
 
 		require.Equal(t, int(length), len(result))
 
@@ -107,13 +109,13 @@ func TestString(t *testing.T) {
 		t.Parallel()
 
 		length := uint8(20)
-		result := String(length, Symbols)
+		result := random.String(length, random.Symbols)
 
 		require.Equal(t, int(length), len(result))
 
 		// Verify all characters are from the symbols set
 		for _, char := range result {
-			require.True(t, strings.ContainsRune(Symbols, char))
+			require.True(t, strings.ContainsRune(random.Symbols, char))
 		}
 	})
 
@@ -121,7 +123,7 @@ func TestString(t *testing.T) {
 		t.Parallel()
 
 		length := uint8(30)
-		result := String(length, Uppercase, Numeric)
+		result := random.String(length, random.Uppercase, random.Numeric)
 
 		require.Equal(t, int(length), len(result))
 
@@ -134,15 +136,15 @@ func TestString(t *testing.T) {
 		t.Parallel()
 
 		length := uint8(50)
-		result := String(length, Alphanumeric, Symbols)
+		result := random.String(length, random.Alphanumeric, random.Symbols)
 
 		require.Equal(t, int(length), len(result))
 
 		// Verify all characters are from the combined charset
 		for _, char := range result {
 			require.True(t,
-				strings.ContainsRune(Alphanumeric, char) ||
-					strings.ContainsRune(Symbols, char),
+				strings.ContainsRune(random.Alphanumeric, char) ||
+					strings.ContainsRune(random.Symbols, char),
 			)
 		}
 	})
@@ -150,7 +152,7 @@ func TestString(t *testing.T) {
 	t.Run("zero length", func(t *testing.T) {
 		t.Parallel()
 
-		result := String(0)
+		result := random.String(0)
 
 		require.Equal(t, 0, len(result))
 		require.Equal(t, "", result)
@@ -159,7 +161,7 @@ func TestString(t *testing.T) {
 	t.Run("single character", func(t *testing.T) {
 		t.Parallel()
 
-		result := String(1)
+		result := random.String(1)
 
 		require.Equal(t, 1, len(result))
 
@@ -176,7 +178,7 @@ func TestString(t *testing.T) {
 
 		// Generate multiple strings
 		for i := 0; i < 100; i++ {
-			result := String(length)
+			result := random.String(length)
 			results[result] = true
 		}
 
@@ -189,7 +191,7 @@ func TestString(t *testing.T) {
 
 		customCharset := "ABC123"
 		length := uint8(20)
-		result := String(length, customCharset)
+		result := random.String(length, customCharset)
 
 		require.Equal(t, int(length), len(result))
 
@@ -203,7 +205,7 @@ func TestString(t *testing.T) {
 		t.Parallel()
 
 		length := uint8(20)
-		result := String(length, "")
+		result := random.String(length, "")
 
 		require.Equal(t, int(length), len(result))
 
@@ -216,7 +218,7 @@ func TestString(t *testing.T) {
 		t.Parallel()
 
 		length := uint8(255)
-		result := String(length)
+		result := random.String(length)
 
 		require.Equal(t, int(length), len(result))
 	})
@@ -233,7 +235,7 @@ func TestString_CharacterDistribution(t *testing.T) {
 		lowercaseCount := 0
 
 		for i := 0; i < 10; i++ {
-			result := String(length, Alphabetic)
+			result := random.String(length, random.Alphabetic)
 			for _, char := range result {
 				if char >= 'A' && char <= 'Z' {
 					uppercaseCount++
@@ -260,7 +262,7 @@ func TestString_CharacterDistribution(t *testing.T) {
 		digitCount := 0
 
 		for i := 0; i < 10; i++ {
-			result := String(length, Alphanumeric)
+			result := random.String(length, random.Alphanumeric)
 			for _, char := range result {
 				if (char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z') {
 					letterCount++
@@ -285,24 +287,24 @@ func TestString_Constants(t *testing.T) {
 	t.Run("verify constant values", func(t *testing.T) {
 		t.Parallel()
 
-		assert.Equal(t, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", Uppercase)
-		assert.Equal(t, "abcdefghijklmnopqrstuvwxyz", Lowercase)
-		assert.Equal(t, Uppercase+Lowercase, Alphabetic)
-		assert.Equal(t, "0123456789", Numeric)
-		assert.Equal(t, Alphabetic+Numeric, Alphanumeric)
-		assert.Equal(t, "`~!@#$%^&*()-_+={}[]|\\;:\"<>,./?", Symbols)
-		assert.Equal(t, Numeric+"abcdef", Hex)
+		assert.Equal(t, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", random.Uppercase)
+		assert.Equal(t, "abcdefghijklmnopqrstuvwxyz", random.Lowercase)
+		assert.Equal(t, random.Uppercase+random.Lowercase, random.Alphabetic)
+		assert.Equal(t, "0123456789", random.Numeric)
+		assert.Equal(t, random.Alphabetic+random.Numeric, random.Alphanumeric)
+		assert.Equal(t, "`~!@#$%^&*()-_+={}[]|\\;:\"<>,./?", random.Symbols)
+		assert.Equal(t, random.Numeric+"abcdef", random.Hex)
 	})
 
 	t.Run("verify constant lengths", func(t *testing.T) {
 		t.Parallel()
 
-		assert.Equal(t, 26, len(Uppercase))
-		assert.Equal(t, 26, len(Lowercase))
-		assert.Equal(t, 52, len(Alphabetic))
-		assert.Equal(t, 10, len(Numeric))
-		assert.Equal(t, 62, len(Alphanumeric))
-		assert.Equal(t, 16, len(Hex))
-		assert.Equal(t, 31, len(Symbols))
+		assert.Equal(t, 26, len(random.Uppercase))
+		assert.Equal(t, 26, len(random.Lowercase))
+		assert.Equal(t, 52, len(random.Alphabetic))
+		assert.Equal(t, 10, len(random.Numeric))
+		assert.Equal(t, 62, len(random.Alphanumeric))
+		assert.Equal(t, 16, len(random.Hex))
+		assert.Equal(t, 31, len(random.Symbols))
 	})
 }

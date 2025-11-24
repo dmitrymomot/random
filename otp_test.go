@@ -1,8 +1,10 @@
-package random
+package random_test
 
 import (
 	"regexp"
 	"testing"
+
+	"github.com/dmitrymomot/random"
 )
 
 func TestOTP(t *testing.T) {
@@ -28,9 +30,9 @@ func TestOTP(t *testing.T) {
 			var otp string
 			var err error
 			if tt.length == nil {
-				otp, err = OTP()
+				otp, err = random.OTP()
 			} else {
-				otp, err = OTP(tt.length[0])
+				otp, err = random.OTP(tt.length[0])
 			}
 
 			if err != nil {
@@ -56,7 +58,7 @@ func TestOTP_Randomness(t *testing.T) {
 	// Generate multiple OTPs and ensure they're not all the same
 	otps := make(map[string]bool)
 	for i := 0; i < 100; i++ {
-		otp, err := OTP()
+		otp, err := random.OTP()
 		if err != nil {
 			t.Fatalf("OTP() unexpected error: %v", err)
 		}
@@ -73,7 +75,7 @@ func TestOTP_Randomness(t *testing.T) {
 func TestOTP_ZeroLength(t *testing.T) {
 	t.Parallel()
 
-	otp, err := OTP(0)
+	otp, err := random.OTP(0)
 	if err != nil {
 		t.Fatalf("OTP(0) unexpected error: %v", err)
 	}
@@ -87,7 +89,7 @@ func TestOTP_ZeroLength(t *testing.T) {
 func TestOTP_NegativeLength(t *testing.T) {
 	t.Parallel()
 
-	otp, err := OTP(-5)
+	otp, err := random.OTP(-5)
 	if err != nil {
 		t.Fatalf("OTP(-5) unexpected error: %v", err)
 	}

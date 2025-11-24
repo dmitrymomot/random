@@ -1,10 +1,12 @@
-package random
+package random_test
 
 import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/dmitrymomot/random"
 )
 
 func TestGetRandomWithProbabilities(t *testing.T) {
@@ -16,14 +18,14 @@ func TestGetRandomWithProbabilities(t *testing.T) {
 		items := []string{"a", "b", "c"}
 		probabilities := []float64{0.0, 0.2, 0.0}
 
-		got := GetRandomWithProbabilities(items, probabilities)
+		got := random.GetRandomWithProbabilities(items, probabilities)
 		require.Equal(t, "b", got)
 	})
 
 	t.Run("empty slices", func(t *testing.T) {
 		t.Parallel()
 
-		got := GetRandomWithProbabilities([]string{}, []float64{})
+		got := random.GetRandomWithProbabilities([]string{}, []float64{})
 		require.Equal(t, "", got)
 	})
 
@@ -33,7 +35,7 @@ func TestGetRandomWithProbabilities(t *testing.T) {
 		items := []string{"a", "b"}
 		probabilities := []float64{0.5, 0.3, 0.2}
 
-		got := GetRandomWithProbabilities(items, probabilities)
+		got := random.GetRandomWithProbabilities(items, probabilities)
 		require.Equal(t, "", got)
 	})
 
@@ -43,7 +45,7 @@ func TestGetRandomWithProbabilities(t *testing.T) {
 		items := []string{"a", "b", "c"}
 		probabilities := []float64{0.5, -0.1, 0.4}
 
-		got := GetRandomWithProbabilities(items, probabilities)
+		got := random.GetRandomWithProbabilities(items, probabilities)
 		require.Equal(t, "", got)
 	})
 
@@ -53,7 +55,7 @@ func TestGetRandomWithProbabilities(t *testing.T) {
 		items := []string{"a", "b", "c"}
 		probabilities := []float64{0.0, 0.0, 0.0}
 
-		got := GetRandomWithProbabilities(items, probabilities)
+		got := random.GetRandomWithProbabilities(items, probabilities)
 		require.Equal(t, "", got)
 	})
 
@@ -65,39 +67,13 @@ func TestGetRandomWithProbabilities(t *testing.T) {
 
 		counts := make(map[string]int)
 		for i := 0; i < 1000; i++ {
-			result := GetRandomWithProbabilities(items, probabilities)
+			result := random.GetRandomWithProbabilities(items, probabilities)
 			counts[result]++
 		}
 
 		// a should appear most frequently
 		require.Greater(t, counts["a"], counts["b"])
 		require.Greater(t, counts["b"], counts["c"])
-	})
-}
-
-func Test_randomFloat64(t *testing.T) {
-	t.Parallel()
-
-	t.Run("within bounds", func(t *testing.T) {
-		t.Parallel()
-
-		max := 1.0
-		for i := 0; i < 100; i++ {
-			got := randomFloat64(max)
-			require.LessOrEqual(t, got, max)
-			require.GreaterOrEqual(t, got, 0.0)
-		}
-	})
-
-	t.Run("different max values", func(t *testing.T) {
-		t.Parallel()
-
-		maxValues := []float64{1.0, 10.0, 100.0, 0.5}
-		for _, max := range maxValues {
-			got := randomFloat64(max)
-			require.LessOrEqual(t, got, max)
-			require.GreaterOrEqual(t, got, 0.0)
-		}
 	})
 }
 
@@ -122,14 +98,14 @@ func TestGetRandomStructWithProbabilities(t *testing.T) {
 		c := testStruct{Field1: "c", Field2: 3, Probability: 0.0}
 
 		items := []testStruct{a, b, c}
-		got := GetRandomStructWithProbabilities(items)
+		got := random.GetRandomStructWithProbabilities(items)
 		require.Equal(t, b, got)
 	})
 
 	t.Run("empty slice", func(t *testing.T) {
 		t.Parallel()
 
-		got := GetRandomStructWithProbabilities([]testStruct{})
+		got := random.GetRandomStructWithProbabilities([]testStruct{})
 		require.Equal(t, testStruct{}, got)
 	})
 
@@ -140,7 +116,7 @@ func TestGetRandomStructWithProbabilities(t *testing.T) {
 		b := testStruct{Field1: "b", Field2: 2, Probability: -0.1}
 
 		items := []testStruct{a, b}
-		got := GetRandomStructWithProbabilities(items)
+		got := random.GetRandomStructWithProbabilities(items)
 		require.Equal(t, testStruct{}, got)
 	})
 
@@ -151,7 +127,7 @@ func TestGetRandomStructWithProbabilities(t *testing.T) {
 		b := testStruct{Field1: "b", Field2: 2, Probability: 0.0}
 
 		items := []testStruct{a, b}
-		got := GetRandomStructWithProbabilities(items)
+		got := random.GetRandomStructWithProbabilities(items)
 		require.Equal(t, testStruct{}, got)
 	})
 
@@ -166,7 +142,7 @@ func TestGetRandomStructWithProbabilities(t *testing.T) {
 
 		counts := make(map[string]int)
 		for i := 0; i < 1000; i++ {
-			result := GetRandomStructWithProbabilities(items)
+			result := random.GetRandomStructWithProbabilities(items)
 			counts[result.Field1]++
 		}
 
@@ -187,14 +163,14 @@ func TestGetRandomMapItemWithProbabilities(t *testing.T) {
 			"c": 0.0,
 		}
 
-		got := GetRandomMapItemWithProbabilities(items)
+		got := random.GetRandomMapItemWithProbabilities(items)
 		require.Equal(t, "b", got)
 	})
 
 	t.Run("empty map", func(t *testing.T) {
 		t.Parallel()
 
-		got := GetRandomMapItemWithProbabilities(map[string]float64{})
+		got := random.GetRandomMapItemWithProbabilities(map[string]float64{})
 		require.Equal(t, "", got)
 	})
 
@@ -207,7 +183,7 @@ func TestGetRandomMapItemWithProbabilities(t *testing.T) {
 			"c": 0.4,
 		}
 
-		got := GetRandomMapItemWithProbabilities(items)
+		got := random.GetRandomMapItemWithProbabilities(items)
 		require.Equal(t, "", got)
 	})
 
@@ -220,7 +196,7 @@ func TestGetRandomMapItemWithProbabilities(t *testing.T) {
 			"c": 0.0,
 		}
 
-		got := GetRandomMapItemWithProbabilities(items)
+		got := random.GetRandomMapItemWithProbabilities(items)
 		require.Equal(t, "", got)
 	})
 
@@ -235,7 +211,7 @@ func TestGetRandomMapItemWithProbabilities(t *testing.T) {
 
 		counts := make(map[string]int)
 		for i := 0; i < 1000; i++ {
-			result := GetRandomMapItemWithProbabilities(items)
+			result := random.GetRandomMapItemWithProbabilities(items)
 			counts[result]++
 		}
 
@@ -250,7 +226,7 @@ func TestGetRandomMapItemWithPercent(t *testing.T) {
 	t.Run("empty map", func(t *testing.T) {
 		t.Parallel()
 
-		got := GetRandomMapItemWithPercent(map[string]float64{})
+		got := random.GetRandomMapItemWithPercent(map[string]float64{})
 		require.Equal(t, "", got)
 	})
 
@@ -261,7 +237,7 @@ func TestGetRandomMapItemWithPercent(t *testing.T) {
 			"a": 100.0,
 		}
 
-		got := GetRandomMapItemWithPercent(items)
+		got := random.GetRandomMapItemWithPercent(items)
 		require.Equal(t, "a", got)
 	})
 
@@ -274,7 +250,7 @@ func TestGetRandomMapItemWithPercent(t *testing.T) {
 			"c": 30.0,
 		}
 
-		got := GetRandomMapItemWithPercent(items)
+		got := random.GetRandomMapItemWithPercent(items)
 		require.Equal(t, "", got)
 	})
 
@@ -287,7 +263,7 @@ func TestGetRandomMapItemWithPercent(t *testing.T) {
 			"c": 0.0,
 		}
 
-		got := GetRandomMapItemWithPercent(items)
+		got := random.GetRandomMapItemWithPercent(items)
 		require.Equal(t, "", got)
 	})
 
@@ -304,7 +280,7 @@ func TestGetRandomMapItemWithPercent(t *testing.T) {
 
 		counts := make(map[string]int)
 		for i := 0; i < 1000; i++ {
-			result := GetRandomMapItemWithPercent(items)
+			result := random.GetRandomMapItemWithPercent(items)
 			counts[result]++
 		}
 
@@ -322,7 +298,7 @@ func Test_randomMapItem(t *testing.T) {
 		a, b, c, d, e int
 	)
 	for i := 0; i < 1000; i++ {
-		switch GetRandomMapItemWithPercent(map[string]float64{
+		switch random.GetRandomMapItemWithPercent(map[string]float64{
 			"a": 50.0,
 			"b": 30.0,
 			"c": 12.0,

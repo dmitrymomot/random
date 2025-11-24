@@ -1,18 +1,18 @@
 # random
 
-[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/dmitrymomot/random)](https://github.com/dmitrymomot/random)
-[![Tests](https://github.com/dmitrymomot/random/actions/workflows/tests.yml/badge.svg)](https://github.com/dmitrymomot/random/actions/workflows/tests.yml)
-[![CodeQL Analysis](https://github.com/dmitrymomot/random/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/dmitrymomot/random/actions/workflows/codeql-analysis.yml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/dmitrymomot/random)](https://goreportcard.com/report/github.com/dmitrymomot/random)
-[![Go Reference](https://pkg.go.dev/badge/github.com/dmitrymomot/random.svg)](https://pkg.go.dev/github.com/dmitrymomot/random)
-[![License](https://img.shields.io/github/license/dmitrymomot/random)](https://github.com/dmitrymomot/random/blob/main/LICENSE)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/dmitrymomot/random)](https://github.com/dmitrymomot/random/v2)
+[![Tests](https://github.com/dmitrymomot/random/v2/actions/workflows/tests.yml/badge.svg)](https://github.com/dmitrymomot/random/v2/actions/workflows/tests.yml)
+[![CodeQL Analysis](https://github.com/dmitrymomot/random/v2/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/dmitrymomot/random/v2/actions/workflows/codeql-analysis.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/dmitrymomot/random/v2)](https://goreportcard.com/report/github.com/dmitrymomot/random/v2)
+[![Go Reference](https://pkg.go.dev/badge/github.com/dmitrymomot/random/v2.svg)](https://pkg.go.dev/github.com/dmitrymomot/random/v2)
+[![License](https://img.shields.io/github/license/dmitrymomot/random)](https://github.com/dmitrymomot/random/v2/blob/main/LICENSE)
 
 Utilities for generating random strings, cryptographically secure one-time passwords, and performing weighted random selections from slices, structs, and maps.
 
 ## Installation
 
 ```bash
-go get -u github.com/dmitrymomot/random
+go get -u github.com/dmitrymomot/random/v2
 ```
 
 ## Security Warning
@@ -32,7 +32,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/dmitrymomot/random"
+	"github.com/dmitrymomot/random/v2"
 )
 
 func main() {
@@ -66,7 +66,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/dmitrymomot/random"
+	"github.com/dmitrymomot/random/v2"
 )
 
 func main() {
@@ -116,7 +116,7 @@ package main
 import (
 	"fmt"
 	"log"
-	"github.com/dmitrymomot/random"
+	"github.com/dmitrymomot/random/v2"
 )
 
 func main() {
@@ -168,7 +168,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/dmitrymomot/random"
+	"github.com/dmitrymomot/random/v2"
 )
 
 func main() {
@@ -192,7 +192,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/dmitrymomot/random"
+	"github.com/dmitrymomot/random/v2"
 )
 
 type LootItem struct {
@@ -225,7 +225,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/dmitrymomot/random"
+	"github.com/dmitrymomot/random/v2"
 )
 
 func main() {
@@ -249,7 +249,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/dmitrymomot/random"
+	"github.com/dmitrymomot/random/v2"
 )
 
 func main() {
@@ -336,4 +336,4 @@ This is v2 with breaking changes from v1:
 
 ## License
 
-Licensed under [Apache License 2.0](https://github.com/dmitrymomot/random/blob/main/LICENSE)
+Licensed under [Apache License 2.0](https://github.com/dmitrymomot/random/v2/blob/main/LICENSE)

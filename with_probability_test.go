@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/dmitrymomot/random"
+	"github.com/dmitrymomot/random/v2"
 )
 
 func TestGetRandomWithProbabilities(t *testing.T) {

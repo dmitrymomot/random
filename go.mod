@@ -1,4 +1,4 @@
-module github.com/dmitrymomot/random
+module github.com/dmitrymomot/random/v2
 
 go 1.25
 

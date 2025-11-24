@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/dmitrymomot/random"
+	"github.com/dmitrymomot/random/v2"
 )
 
 func TestOTP(t *testing.T) {

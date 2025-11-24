@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/dmitrymomot/random"
+	"github.com/dmitrymomot/random/v2"
 )
 
 func main() {
